@@ -8,6 +8,11 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.social.security.SocialUser;
 
+/**
+ * 
+ * @author sharanabasava.d
+ *
+ */
 public class JeanWagonUserDetails extends SocialUser{
 
 	private Long id;
@@ -101,5 +106,49 @@ public class JeanWagonUserDetails extends SocialUser{
  
             return user;
         }
+    }
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	public SocialMediaService getSocialSignInProvider() {
+		return socialSignInProvider;
+	}
+
+	public void setSocialSignInProvider(SocialMediaService socialSignInProvider) {
+		this.socialSignInProvider = socialSignInProvider;
+	}
+
+	public static Builder getBuilder() {
+        return new Builder();
     }
 }
