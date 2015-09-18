@@ -6,7 +6,35 @@
 	http://www.springframework.org/schema/security
 	http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
+	<!-- Static resources such as CSS and JS files are ignored by Spring Security -->
+	<http pattern="/static/**" security="none"/>
+	
 	<http>
-		
-	</http>    
+		<!-- Enables Spring Security CSRF protection -->
+		<csrf/>
+		<!-- Configures the form login -->
+        <form-login
+                login-page="/login"
+                login-processing-url="/login/authenticate"
+                authentication-failure-url="/login?error=bad_credentials"
+                username-parameter="username"
+                password-parameter="password"/>
+        <!-- Configures the logout function -->
+        <logout
+                logout-url="/logout"
+                logout-success-url="/login"
+                delete-cookies="JESSIONID"/>
+        <!-- Anyone can access these urls -->
+        <intercept-url pattern="/auth/**" access="permitAll"/>
+        <intercept-url pattern="/login" access="permitAll"/>
+        <intercept-url pattern="/signin/**" access="permitAll"/>
+        <intercept-url pattern="/signup/**" access="permitAll"/>
+        <intercept-url pattern="/user/register/**" access="permitAll"/>
+
+        <!-- The rest of our application is protected. -->
+        <intercept-url pattern="/**" access="hasRole('ROLE_USER')"/>
+
+        <!-- Adds social authentication filter to the Spring Security filter chain. -->
+        <custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER" />
+	</http>
 </beans:beans>
