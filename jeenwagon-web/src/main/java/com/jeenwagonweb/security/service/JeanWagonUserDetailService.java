@@ -1,14 +1,13 @@
-package com.jeenwagonweb.service;
+package com.jeenwagonweb.security.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.jeenwagonweb.auth.JeanWagonUserDetails;
-import com.jeenwagonweb.auth.UserNotFoundException;
-import com.jeenwagonweb.dao.UserAccountDAO;
-import com.jeenwagonweb.entity.User;
+import com.jeenwagonweb.security.dto.JeanWagonUserDetails;
+import com.jeenwagonweb.user.dao.UserAccountDAO;
+import com.jeenwagonweb.user.entity.User;
 
 /**
  * 

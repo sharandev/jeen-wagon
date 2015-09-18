@@ -1,4 +1,4 @@
-package com.jeenwagonweb.auth;
+package com.jeenwagonweb.security.dto;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -7,6 +7,9 @@ import java.util.Set;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.social.security.SocialUser;
+
+import com.jeenwagonweb.common.entity.Role;
+import com.jeenwagonweb.common.entity.SocialMediaService;
 
 /**
  * 

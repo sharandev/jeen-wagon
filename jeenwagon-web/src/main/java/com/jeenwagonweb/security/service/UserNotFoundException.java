@@ -1,4 +1,4 @@
-package com.jeenwagonweb.auth;
+package com.jeenwagonweb.security.service;
 
 public class UserNotFoundException extends Exception{
 

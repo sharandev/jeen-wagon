@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.jeenwagonweb.auth;
+package com.jeenwagonweb.common.entity;
 
 /**
  * @author sharanabasava.d

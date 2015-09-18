@@ -37,4 +37,53 @@
         <!-- Adds social authentication filter to the Spring Security filter chain. -->
         <custom-filter ref="socialAuthenticationFilter" before="PRE_AUTH_FILTER" />
 	</http>
+	<!-- This is used to hash the password of the user. -->
+    <beans:bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+        <beans:constructor-arg index="0" value="10"/>
+    </beans:bean>
+    
+     <!-- This bean is load the user specific data when form login is used. -->
+    <beans:bean id="userDetailsService" class="com.jeenwagonweb.security.service.JeanWagonUserDetailService" autowire="constructor"/>
+    
+    <!--This bean is used to load the user specific data when social sign in is used. -->
+    <beans:bean id="socialUserDetailsService" class="com.jeenwagonweb.security.service.SimpleSocialUserDetailsService" autowire="constructor"/>
+    
+    <!--
+        Configures the social authentication provider which processes authentication requests
+        made by using supported social authentication services (FB, Twitter and so on).
+    -->
+    <beans:bean id="socialAuthenticationProvider" class="org.springframework.social.security.SocialAuthenticationProvider">
+        <beans:constructor-arg index="0" ref="usersConnectionRepository"/>
+        <beans:constructor-arg index="1" ref="socialUserDetailsService"/>
+    </beans:bean>
+    
+    <!--
+        Configures the authentication manager bean which processes authentication
+        requests.
+    -->
+    <authentication-manager alias="authenticationManager">
+        <authentication-provider user-service-ref="userDetailsService">
+            <password-encoder ref="passwordEncoder"/>
+        </authentication-provider>
+        <authentication-provider ref="socialAuthenticationProvider" />
+    </authentication-manager>
+    
+    <!-- This bean encrypts the authorization details of the connection.  -->
+    <beans:bean id="textEncryptor" class="org.springframework.security.crypto.encrypt.Encryptors" factory-method="noOpText" />
+     <!-- This bean determines the account ID of the user. this application uses the username as the account ID.-->
+    <beans:bean id="userIdSource" class="org.springframework.social.security.AuthenticationNameUserIdSource"/>
+    
+     <!--
+        Configures the social authentication filter which integrates Spring Social
+        with Spring Security.
+    -->
+    <beans:bean id="socialAuthenticationFilter" class="org.springframework.social.security.SocialAuthenticationFilter">
+        <beans:constructor-arg index="0" ref="authenticationManager"/>
+        <beans:constructor-arg index="1" ref="userIdSource"/>
+        <beans:constructor-arg index="2" ref="usersConnectionRepository"/>
+        <beans:constructor-arg index="3" ref="connectionFactoryLocator"/>
+
+        <!-- Sets the url of the registration form. -->
+        <beans:property name="signupUrl" value="/user/register"/>
+    </beans:bean>
 </beans:beans>

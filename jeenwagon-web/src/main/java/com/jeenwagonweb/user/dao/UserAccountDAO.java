@@ -1,12 +1,12 @@
 /**
  * 
  */
-package com.jeenwagonweb.dao;
+package com.jeenwagonweb.user.dao;
 
 import java.util.List;
 
-import com.jeenwagonweb.auth.UserNotFoundException;
-import com.jeenwagonweb.entity.User;
+import com.jeenwagonweb.security.service.UserNotFoundException;
+import com.jeenwagonweb.user.entity.User;
 
 /**
  * @author sharanabasava.d
